@@ -115,9 +115,9 @@ Use the family of models $f(\mathbf{x}, \boldsymbol{\theta}) = \theta_0 + \theta
 Consider any family of non-linear models of your choice to address the above regression problem.
 \begin{itemize}
 	\item [a.] Evaluate the test performance of your model using the mean squared error as performance measure. 
- $$MSE\ on\ test\ set:\ 0.7049353122711182$$
+ $$MSE\ on\ test\ set:\ 0.07060475599724211 $$
 	\item [b.] Compare your model with the linear regression of Task 1. Which one is {statistically} better?\\\\
- Statistically, it is better the non-linear family because the linear family implicitly assumes that there is a linear relationship between features and targets and it is not able to learn it. On the other hand, the non-linear family, which can be a simple Feed Forward Neural Network with a non-linearity as activation function of one hidden layer, can learn more complex scenarios where the relationship between the features and targets is not linear.
+ Statistically, it is better the non-linear family because the linear family implicitly assumes that there is a linear relationship between features and targets and it is not able to learn it. I got that score on MSE with a degree 11 polynomial fitting. Still, it can be worth considering to implement a Neural Network, to learn complex scenarios where the relationship between features and their targets is not linear.
 \end{itemize}
 
 \subsection*{Task 3 (Bonus)}
@@ -163,7 +163,8 @@ Generally, the optimal model is the one that has the best loss performance befor
 Comment and compare how the (a.) training error, (b.) test error and (c.) coefficients would change in the following cases:
 \begin{itemize}
 \item[Q2.1] $x_3 = x_1 + 0.2 \cdot x_2$.
-\item[A2.1] ~\\
+\item[A2.1] In this case, we are expecting both the training and test error not to decrease because another linear component have been introduced in the model and it will just offset or change the slope of the line. Still, they might decrease a little bit as we don't know the task but they will not statistically improve the model. \\
+Coefficients will adjust based on the relevance of the new regressor. If the regressor is relevant it will have a larger coefficients, while if it's not relevant it will have a small coefficient. Other coefficients will adjust based on the other features' coefficients.
 
 \item[Q2.2] $x_3 = x_1 \cdot x_2 \cdot x_2$
 \item[A2.2] ~\\
@@ -175,7 +176,7 @@ Comment and compare how the (a.) training error, (b.) test error and (c.) coeffi
 \item[A2.3] ~\\
 
 \item[Q2.4] Explain the motivation behind Ridge and Lasso regression and their principal differences.
-\item[A2.4] ~\\  
+\item[A2.4] Both in Lasso and Ridge regression, we want to penalize parameter vectors with low magnitude as they are less relevant to the model.
 \end{itemize}
 
 \subsection*{Q3. Classification}
@@ -210,7 +211,7 @@ The main similarities are:
 \begin{itemize}
     \item They are both used in architectures to solve binary classification tasks;
     \item They both generate a decision boundary for the classes.
-\end{itemize}  .
+\end{itemize} 
 
 \end{itemize}
 
