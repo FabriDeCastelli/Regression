@@ -167,16 +167,20 @@ Comment and compare how the (a.) training error, (b.) test error and (c.) coeffi
 Coefficients will adjust based on the relevance of the new regressor. If the regressor is relevant it will have a larger coefficients, while if it's not relevant it will have a small coefficient. Other coefficients will adjust based on the other features' coefficients.
 
 \item[Q2.2] $x_3 = x_1 \cdot x_2 \cdot x_2$
-\item[A2.2] ~\\
+\item[A2.2] In the case the model can learn non linear features and thus decrease both the test and training error. Obviously, it depends on data... $\theta_3$ in this will have high absolute value if that feature can correctly approximate the unknown function $g$.
 
 \item[Q2.3] $x_3$ is a random variable independent from $y$.
 \item[A2.3] ~\\
 
 \item[Q2.3] How would your answers change if you were using Lasso Regression?
-\item[A2.3] ~\\
+\item[A2.3] If we were using lasso regression, all irrelevant coefficient will be shrunk to zero as irrelevant to the model so the training procedure will automatically cut off irrelevant parameters in the model. This happens because we want to find a compromise between the training and parameter vector with small magnitude by minimizing the function 
+$$ E(\theta) = \sum_{i \leq n} L(y(x_i), f(x_i, \theta)) + \lambda ||\theta||_1$$
+$\lambda$ is the weight we want to give to the regularization term.
 
 \item[Q2.4] Explain the motivation behind Ridge and Lasso regression and their principal differences.
-\item[A2.4] Both in Lasso and Ridge regression, we want to penalize parameter vectors with low magnitude as they are less relevant to the model.
+\item[A2.4] Both in Lasso and Ridge regression, we want to regularize parameter vectors with low magnitude to control overfitting. In Ridge regression we shrink the squares of components of the parameter vector. This won't totally shrink irrelevant features to zero as $\theta_i^2 < \theta_i$, $\forall \theta_i \in [0,1]$, for some component $\theta_i$ (we are looking at squares). Additionally, this kind of regularization ($L_2$) penalizes large components to reduce overfitting (the square of a large number is even higher). This technique is used \\
+On the other hand, Lasso regularization term is used to avoid overfitting by setting irrelevant coefficients to zero. More clearly, \textit{irrelevant parameters} are the ones that have small values.\\
+Usually, Ridge is used in large models were the number of features is high and Lasso is used in smaller models were the number of features is low.
 \end{itemize}
 
 \subsection*{Q3. Classification}
