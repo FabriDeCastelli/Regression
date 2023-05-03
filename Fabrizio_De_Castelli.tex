@@ -205,7 +205,7 @@ Generally, if we have a network composed of linearities only, we lose power of c
 \item[Q3.2] Would you expect better luck with a neural network with the activation function $h(x) = - x * e^{(-2)}$ for the hidden units?
 \item[A3.2] This activation function is still linear, so I am not expecting explicitly better result. In fact:
 $$h(ax+b) = -(ax + b)*e^{(-2)} = -ax*e^{(-2)} - b*e^{(-2)} = a*h(x) + h(b)$$
-We are not sure it will worsen or improve the model, but if it improves it, the gain is not too evident. It might be the case to introduce another activation function that is non-linear.
+We are not sure it will worsen or improve the model, but if it improves it, the gain might not be too evident. It might be the case to introduce another activation function that is non-linear.
 
 \item[Q3.3] What are the main differences and similarities between the perceptron and the logistic regression neuron?
 \item[A3.3] The main differences are:
