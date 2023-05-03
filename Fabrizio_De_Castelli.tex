@@ -124,7 +124,17 @@ Consider any family of non-linear models of your choice to address the above reg
 In the \href{https://github.com/GiorgiaAuroraAdorni/ML-bachelor-course-assignments-sp23}{\textbf{GitHub repository of the course}}, you will find a trained Scikit-learn model that we built using the same dataset you are given. 
 This \textit{baseline} model is able to achieve a MSE of \textbf{0.022}, when evaluated on the test set. 
 You will get extra points if you provide a model of your choice whose test performance is \textbf{better} (i.e., the MSE is lower) than ours. Of course, you must also tell us why your model is performing better.
+\\
 
+\textbf{My Solution}  \\
+I implemented a Neural Network with two hidden layers:
+\begin{itemize}
+    \item Layer 1: 20 neurons and \textit{ReLU} as activation function;
+    \item Layer 2: 13 neurons and \textit{tanh} as activation function.
+\end{itemize}
+I trained the model for 1200 epochs without early stopping. I got to the optimal number of epochs after having tried different options. This number, for my NN, was outperforming all other configurations I tried. \\
+I managed to get 0.0166 MSE on the whole dataset after having transformed input data from 2 to 5 dimensions, as suggested by you in this assignment.\\
+Probably this model performs better because a NN is more flexible at learning features than other models. Plus, the baseline model is a simple reference model used as a  benchmarks for other trained models.
 %----------------------------------------------------------------------------------------
 %	Questions
 %----------------------------------------------------------------------------------------
@@ -140,7 +150,7 @@ You will get extra points if you provide a model of your choice whose test perfo
 
 \begin{itemize}
 \item[Q1.2.a] Can you identify any signs of overfitting or underfitting in the plot? If yes, explain which sections correspond to which concept.
-\item[A1.2.a] The more the number of iteration grows, the more the risk of overfitting increases. That is because we are training our too much on the training set, minimizing its error. In the figure, overfitting can be seen in the section (c). In underfitting we are in the opposite situation: the model is not able to fit data in the correct way (it fits only few of them) and we are getting a very high training, validation and expected test error as well. Thus, overfitting can be seen in section (a).\\
+\item[A1.2.a] The more the number of iteration grows, the more the risk of overfitting increases. That is because we are training our too much on the training set, minimizing its error. In the figure, overfitting can be seen in the section (c). In underfitting we are in the opposite situation: the model is not able to fit data in the correct way (it fits only few of them) and we are getting a very high training, validation and expected test error as well. Thus, underfitting can be seen in section (a).\\
 In section (b) there is a compromise of overfitting and underfitting, leading to a better performing model.
 
 \item[Q1.2.b] How can you determine the optimal complexity of the model based on the given plot?
@@ -149,13 +159,13 @@ Generally, the optimal model is the one that has the best loss performance befor
 \end{itemize}
 	
 \item[Q1.3] Is there any evidence of high approximation risk? Why? If yes, in which of the below subfigures?  
-\item[A1.3] 
+\item[A1.3] Yes, the approximation risk refers to the model complexity, that is strictly related to overfitting. In the figure we can see that a certain point both the validation and test error are increasing, while the training error is decreasing. This because the model is starting to overfit data and lose its generalization power. High overfitting increases the approximation risk.
 
 \item[Q1.4] Do you think that increasing the model complexity can bring the training error to zero? And the structural risk?  
-\item[A1.4] Increasing the model complexity can bring the training error to zero, but with a low probability because all data points are affected by noise. The structural risk is the expected difference between the empirical risk (i.e. the error) and the true risk, so it has 
+\item[A1.4] Increasing the model complexity can bring the training error to zero, but with a low probability because all data points are affected by noise. The structural risk is the expected difference between the empirical risk (i.e. the training error) and the true risk (i.e the generalization error), so even if the training error is zero, it is unlikely that the model will perform the same way for never seen data. Because the more the model gets complex, the more overfitting we have and this will affect the test error, so the structural risk.
 
 \item[Q1.5] If the X axis represented the training iterations instead, would you think that the training procedure that generated the figure used early stopping? Explain why. (\textbf{NB:} ignore the subfigures and the dashed vertical lines)
-\item[A1.5] Yes, because the more training epochs we do, the more the complexity of the model increases. It can be shown that the number of iterations represent also the model complexity and this is a consequence of overfitting, because we are minimizing the error on the training set by adjusting our parameters.
+\item[A1.5] No, because the model didn't stop early and lost its generalization power along the X axis. Anyway, it can be shown that the number of iteration represent the model complexity. This means that training (if it stops at the end of the plot) made the model become complex.
 
 \end{itemize}
 
@@ -170,15 +180,18 @@ Coefficients will adjust based on the relevance of the new regressor. If the reg
 \item[A2.2] In the case the model can learn non linear features and thus decrease both the test and training error. Obviously, it depends on data... $\theta_3$ in this will have high absolute value if that feature can correctly approximate the unknown function $g$.
 
 \item[Q2.3] $x_3$ is a random variable independent from $y$.
-\item[A2.3] ~\\
+\item[A2.3] In this case, since $x_3$ is independent from $y$, adding it to the model will not help to improve the model. The coefficient of $x_3$ is going to be very close to zero because $x_3$ has nothing to do with $y$.
 
 \item[Q2.3] How would your answers change if you were using Lasso Regression?
-\item[A2.3] If we were using lasso regression, all irrelevant coefficient will be shrunk to zero as irrelevant to the model so the training procedure will automatically cut off irrelevant parameters in the model. This happens because we want to find a compromise between the training and parameter vector with small magnitude by minimizing the function 
-$$ E(\theta) = \sum_{i \leq n} L(y(x_i), f(x_i, \theta)) + \lambda ||\theta||_1$$
-$\lambda$ is the weight we want to give to the regularization term.
+\item[A2.3] If we were using lasso regression, all irrelevant coefficient would be shrunk to zero as irrelevant to the model so the training procedure will automatically cut off irrelevant parameters for the model. This happens because we want to find a compromise between the training and parameter vector with small magnitude by minimizing the function 
+$$ E(\boldsymbol{\theta}) = \sum_{i \leq n} L(y(x_i), f(x_i, \boldsymbol{\theta})) + \lambda ||\boldsymbol{\theta}||_1$$
+$\lambda$ is the weight we want to give to the regularization term.\\
+Now, since the error depends on the sum of the absolute values of the parameter vector, some coefficients might go to zero and so any regressor we added will automatically be ignored thank to this regularization term.
 
 \item[Q2.4] Explain the motivation behind Ridge and Lasso regression and their principal differences.
-\item[A2.4] Both in Lasso and Ridge regression, we want to regularize parameter vectors with low magnitude to control overfitting. In Ridge regression we shrink the squares of components of the parameter vector. This won't totally shrink irrelevant features to zero as $\theta_i^2 < \theta_i$, $\forall \theta_i \in [0,1]$, for some component $\theta_i$ (we are looking at squares). Additionally, this kind of regularization ($L_2$) penalizes large components to reduce overfitting (the square of a large number is even higher). This technique is used \\
+\item[A2.4] Both in Lasso and Ridge regression, we want to regularize parameter vectors with low magnitude to control overfitting. In Ridge regression we shrink the squares of components of the parameter vector, and the error becomes:
+$$ E(\boldsymbol{\theta}) = \sum_{i \leq n} L(y(x_i), f(x_i, \boldsymbol{\theta})) + \lambda ||\boldsymbol{\theta}||_2$$
+This won't totally shrink irrelevant features to zero as $\theta_i^2 < \theta_i$, $\forall \theta_i \in [0,1]$, for some component $\theta_i$ (we are looking at squares). Additionally, this kind of regularization ($L_2$) penalizes large components to reduce overfitting (the square of a large number is even higher).\\
 On the other hand, Lasso regularization term is used to avoid overfitting by setting irrelevant coefficients to zero. More clearly, \textit{irrelevant parameters} are the ones that have small values.\\
 Usually, Ridge is used in large models were the number of features is high and Lasso is used in smaller models were the number of features is low.
 \end{itemize}
@@ -190,7 +203,9 @@ Usually, Ridge is used in large models were the number of features is high and L
 Generally, if we have a network composed of linearities only, we lose power of computation because their composition is still a linear combination of the input.
 
 \item[Q3.2] Would you expect better luck with a neural network with the activation function $h(x) = - x * e^{(-2)}$ for the hidden units?
-\item[A3.2] This activation function is still linear, so I am not expecting explicitly better result. We are not sure it will worsen or improve the model, but if it improves it, the gain is not too evident. It might be the case to introduce another activation function that is non-linear.
+\item[A3.2] This activation function is still linear, so I am not expecting explicitly better result. In fact:
+$$h(ax+b) = -(ax + b)*e^{(-2)} = -ax*e^{(-2)} - b*e^{(-2)} = a*h(x) + h(b)$$
+We are not sure it will worsen or improve the model, but if it improves it, the gain is not too evident. It might be the case to introduce another activation function that is non-linear.
 
 \item[Q3.3] What are the main differences and similarities between the perceptron and the logistic regression neuron?
 \item[A3.3] The main differences are:
