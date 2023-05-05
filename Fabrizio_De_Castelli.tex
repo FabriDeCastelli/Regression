@@ -150,8 +150,8 @@ Probably this model performs better because a NN is more flexible at learning fe
 
 \begin{itemize}
 \item[Q1.2.a] Can you identify any signs of overfitting or underfitting in the plot? If yes, explain which sections correspond to which concept.
-\item[A1.2.a] The more the number of iteration grows, the more the risk of overfitting increases. That is because we are training our too much on the training set, minimizing its error. In the figure, overfitting can be seen in the section (c). In underfitting we are in the opposite situation: the model is not able to fit data in the correct way (it fits only few of them) and we are getting a very high training, validation and expected test error as well. Thus, underfitting can be seen in section (a).\\
-In section (b) there is a compromise of overfitting and underfitting, leading to a better performing model.
+\item[A1.2.a] The more the number of iteration grows, the more the risk of overfitting increases. That is because we are training our model too much, minimizing its error on the training set and losing generalization power. In the figure, overfitting can be seen in the section (c). In underfitting we are in the opposite situation: the model is not able to fit data in the correct way (it fits only few of them) and we are getting a very high training, validation and expected test error as well. Thus, underfitting can be seen in section (a).\\
+In section (b) there is a compromise of overfitting and underfitting, leading to a better performing model that should be able to generalize more on unseen data.
 
 \item[Q1.2.b] How can you determine the optimal complexity of the model based on the given plot?
 \item[A1.2.b] One could say that the optimal model is the one lying on the blue dotted line because it minimizes the difference between the observed validation error and observed training error. But this is not completely true as that model is biased towards some configuration of the dataset, depending on how it is shuffled. The optimal model is probably the one closer to the red dotted line because it is not biased. \\
@@ -159,13 +159,13 @@ Generally, the optimal model is the one that has the best loss performance befor
 \end{itemize}
 	
 \item[Q1.3] Is there any evidence of high approximation risk? Why? If yes, in which of the below subfigures?  
-\item[A1.3] Yes, the approximation risk refers to the model complexity, that is strictly related to overfitting. In the figure we can see that a certain point both the validation and test error are increasing, while the training error is decreasing. This because the model is starting to overfit data and lose its generalization power. High overfitting increases the approximation risk.
+\item[A1.3] Yes, the approximation risk refers to the model complexity, that is strictly related to overfitting. In the figure we can see that a certain point both the validation and test error are increasing, while the training error is decreasing. This happens because the model is starting to overfit data and lose its generalization power. High overfitting increases the approximation risk.
 
 \item[Q1.4] Do you think that increasing the model complexity can bring the training error to zero? And the structural risk?  
 \item[A1.4] Increasing the model complexity can bring the training error to zero, but with a low probability because all data points are affected by noise. The structural risk is the expected difference between the empirical risk (i.e. the training error) and the true risk (i.e the generalization error), so even if the training error is zero, it is unlikely that the model will perform the same way for never seen data. Because the more the model gets complex, the more overfitting we have and this will affect the test error, so the structural risk.
 
 \item[Q1.5] If the X axis represented the training iterations instead, would you think that the training procedure that generated the figure used early stopping? Explain why. (\textbf{NB:} ignore the subfigures and the dashed vertical lines)
-\item[A1.5] No, because the model didn't stop early and lost its generalization power along the X axis. Anyway, it can be shown that the number of iteration represent the model complexity. This means that training (if it stops at the end of the plot) made the model become complex.
+\item[A1.5] No, because the model didn't stop early and lost its generalization power. Anyway, it can be shown that the number of iteration represent the model complexity. This means that training (if it stops at the end of the plot) made the model become too complex.
 
 \end{itemize}
 
@@ -210,20 +210,19 @@ We are not sure it will worsen or improve the model, but if it improves it, the 
 \item[Q3.3] What are the main differences and similarities between the perceptron and the logistic regression neuron?
 \item[A3.3] The main differences are:
 \begin{itemize}
-    \item They have different activation functions. The perceptron has a Step activation function
-    $$f: \mathbb{R} \longrightarrow \mathbb{R},$$
+    \item They have different activation functions. The perceptron has a Step activation function, which is not continuous thus not differentiable:
+    $$f: \mathbb{R} \longrightarrow \{0,1\},$$
     $$f(x) = 
         \begin{cases}
           1, & \text{if $x \ge 0$}\\
           0, & \text{if $x < 0 $}\\
         \end{cases}
     $$
-    while the logistic regression neuron has a sigmoid as activation function
+    while the logistic regression neuron has a sigmoid as activation function, which is differentiable:
     $$sigmoid(x) = \sigma(x) = \frac{1}{1 + e^{-x}}$$
     \item The role of the neurons are different. The perceptron returns as output a value that represents a class assignment if it is higher than a certain threshold, but it doesn't have other interpretation for the output. \\
     On the other hand, the logistic regression neuron output the probability that the given input can be assigned to a certain class. This comes from the construction of the sigmoid, because $\forall x \in \mathbb{R}\ .\ \sigma(x) \in (0, 1)$
-    \item The first one is not continuous, while the second one is continuous and differentiable.
-    \item The perceptron neuron is trained by updating weights iteratively, while the other one can be trained with Maximum Likelihood estimation.
+    \item The perceptron neuron is trained by updating weights iteratively, while the other one can be trained with \textit{Maximum Likelihood} estimation.
 \end{itemize}
 
 The main similarities are:
